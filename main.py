@@ -4,6 +4,7 @@ from app.config import settings
 from app.database.mongodb import init_mongodb
 from app.database.redis import init_redis
 from app.utils.logging import setup_logging
+from app.services.kafka_service import kafka_service
 
 app = FastAPI()
 
@@ -14,11 +15,11 @@ async def startup_event():
     setup_logging()
     await init_mongodb()
     await init_redis()
+    await kafka_service.start()
 
 @app.on_event("shutdown")
 async def shutdown_event():
-    # Implement cleanup logic here
-    pass
+    await kafka_service.stop()
 
 if __name__ == "__main__":
     import uvicorn

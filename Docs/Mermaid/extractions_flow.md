@@ -1,0 +1,11 @@
+graph TD
+    A[Start] --> B[Define API Router]
+    B --> C[Create Extraction Endpoint]
+    C --> D[Validate Session]
+    D --> E[Create Task Document]
+    E --> F[Start Background Extraction]
+    F --> G[Return Task ID]
+    B --> H[Get Messages Endpoint]
+    H --> I[Validate Parameters]
+    I --> J[Query Messages from DB]
+    J --> K[Return Paginated Results]

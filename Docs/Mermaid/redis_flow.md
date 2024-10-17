@@ -1,0 +1,11 @@
+graph TD
+    A[Start] --> B[Initialize Redis]
+    B --> C[Create Redis Client]
+    A --> D[Close Redis]
+    D --> E[Close Redis Connection]
+    A --> F[Get Redis Function]
+    F --> G[Return Redis Client]
+    A --> H[Cache Set Function]
+    H --> I[Set Key with Expiry]
+    A --> J[Cache Get Function]
+    J --> K[Retrieve Value by Key]
