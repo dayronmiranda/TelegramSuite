@@ -12,3 +12,5 @@
 2024-10-17 06:35:15,724 - utils.logging - ERROR - Error registering session: RPCError 406: UPDATE_APP_TO_LOGIN (caused by SendCodeRequest)
 2024-10-17 06:36:10,501 - utils.logging - ERROR - Error registering session: 
 2024-10-17 06:36:10,501 - utils.logging - ERROR - Error registering session: 
+2024-10-17 06:51:59,479 - utils.logging - ERROR - Error registering session: 
+2024-10-17 06:51:59,479 - utils.logging - ERROR - Error registering session: 

@@ -1,0 +1,7 @@
+kafka-python>=2.0.0
+
+[:python_version < "3.7"]
+dataclasses>=0.5
+
+[snappy]
+python-snappy>=0.5
