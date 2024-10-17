@@ -1,6 +1,7 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+
+# Ignorar estos archivos y directorios
 venv/
 *.session
 logs/
-__pycache__/

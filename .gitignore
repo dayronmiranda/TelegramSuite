@@ -1,0 +1,4 @@
+venv/
+*.session
+logs/
+__pycache__/
