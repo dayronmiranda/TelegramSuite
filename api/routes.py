@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from app.api import sessions, extractions, tasks
+from api import sessions, extractions, tasks
 
 router = APIRouter()
 

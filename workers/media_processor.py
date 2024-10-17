@@ -1,9 +1,9 @@
 import asyncio
 from aiokafka import AIOKafkaConsumer
 import json
-from app.config import settings
-from app.database.mongodb import get_db, init_mongodb
-from app.services.media_service import download_media
+from config import settings
+from database.mongodb import get_db, init_mongodb
+from services.media_service import download_media
 from telethon import TelegramClient
 
 async def process_media(message):

@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException, Form
-from app.services.telegram_client import create_session, close_session
-from app.database.mongodb import get_db
-from app.utils.logging import logger
+from services.telegram_client import create_session, close_session
+from database.mongodb import get_db
+from utils.logging import logger
 
 router = APIRouter()
 

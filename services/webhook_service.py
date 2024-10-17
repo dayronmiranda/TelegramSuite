@@ -1,6 +1,6 @@
 import aiohttp
-from app.utils.logging import logger
-from app.config import settings
+from utils.logging import logger
+from config import settings
 
 async def send_webhook_notification(url: str, data: dict):
     async with aiohttp.ClientSession() as session:

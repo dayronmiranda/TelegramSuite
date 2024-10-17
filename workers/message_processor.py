@@ -1,8 +1,8 @@
 import asyncio
 from aiokafka import AIOKafkaConsumer
 import json
-from app.config import settings
-from app.database.mongodb import get_db, init_mongodb
+from config import settings
+from database.mongodb import get_db, init_mongodb
 
 async def process_message(message):
     db = get_db()

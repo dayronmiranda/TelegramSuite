@@ -1,6 +1,6 @@
 from telethon import TelegramClient
-from app.config import settings
-from app.utils.file_utils import process_media_file
+from config import settings
+from utils.file_utils import process_media_file
 import os
 
 async def download_media(client: TelegramClient, message, media_directory: str):

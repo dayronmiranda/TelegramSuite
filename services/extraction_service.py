@@ -1,10 +1,10 @@
-import asyncio
+from database.mongodb import get_db
+from utils.logging import logger
+from services.webhook_service import send_webhook_notification
+from config import settings
+from services.kafka_service import kafka_service
 from telethon import TelegramClient
-from app.database.mongodb import get_db
-from app.utils.logging import logger
-from app.services.webhook_service import send_webhook_notification
-from app.services.media_service import download_media_batch
-from app.config import settings
+
 
 async def start_extraction(session_data, chat_id, limit, task_id):
     db = get_db()
@@ -18,29 +18,24 @@ async def start_extraction(session_data, chat_id, limit, task_id):
                 "chat_id": str(message.chat_id),
                 "date": message.date.isoformat(),
                 "text": message.text,
+                "session_data": session_data,
+                "task_id": str(task_id)
             }
             messages.append(message_data)
             
-            if len(messages) >= settings.BATCH_SIZE:
-                media_info = await download_media_batch(client, messages, settings.MEDIA_DIRECTORY)
-                for media in media_info:
-                    message_index = next((index for (index, d) in enumerate(messages) if d["message_id"] == media["message_id"]), None)
-                    if message_index is not None:
-                        messages[message_index]["media"] = media["media"]
-                
-                await db.messages.insert_many(messages)
-                messages.clear()
-                await asyncio.sleep(settings.RATE_LIMIT_DELAY)
+            # Enviar el mensaje a Kafka
+            await kafka_service.send_message(settings.KAFKA_MESSAGE_TOPIC, message_data)
 
-        if messages:
-            media_info = await download_media_batch(client, messages, settings.MEDIA_DIRECTORY)
-            for media in media_info:
-                message_index = next((index for (index, d) in enumerate(messages) if d["message_id"] == media["message_id"]), None)
-                if message_index is not None:
-                    messages[message_index]["media"] = media["media"]
-            
-            await db.messages.insert_many(messages)
-        
+            if message.media:
+                media_task = {
+                    "message_id": message.id,
+                    "chat_id": str(message.chat_id),
+                    "media_id": message.media.id,
+                    "session_data": session_data,
+                    "task_id": str(task_id)
+                }
+                await kafka_service.send_message(settings.KAFKA_MEDIA_TOPIC, media_task)
+
         await db.tasks.update_one(
             {"_id": task_id},
             {"$set": {"status": "completed", "progress": 100}}

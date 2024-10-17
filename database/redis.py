@@ -1,5 +1,5 @@
 import redis
-from app.config import settings
+from config import settings
 
 redis_client = None
 

@@ -1,6 +1,6 @@
 from aiokafka import AIOKafkaProducer
 import json
-from app.config import settings
+from config import settings
 
 class KafkaService:
     def __init__(self):

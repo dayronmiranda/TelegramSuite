@@ -1,7 +1,7 @@
 import os
 import hashlib
-from app.config import settings
-from app.database.mongodb import get_db
+from config import settings
+from database.mongodb import get_db
 
 async def calculate_file_hash(file_path):
     hash_obj = hashlib.new(settings.FILE_HASH_ALGORITHM)
